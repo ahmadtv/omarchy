@@ -50,6 +50,12 @@ Panel {
       // A tuning's output is a playback stream too, but it is the processing
       // itself rather than an application, so it does not belong in the list.
       if (String(n.name || "").indexOf("omarchy_speaker_tuning") === 0) continue
+      // Nor do the shell's own UI sounds. Quickshell keeps one stream per audio
+      // format for the whole session once any plugin has played a sound, so a
+      // notification chirp or a plugin's effect leaves rows called "quickshell"
+      // sitting in the app list with nothing to adjust. Other desktops hide
+      // event sounds for the same reason.
+      if (String(n.name || "") === "quickshell") continue
       list.push(n)
     }
     return list
